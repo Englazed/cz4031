@@ -32,6 +32,9 @@ void BPlusTree::search(int lowerBound, int upperBound)
 
         Node *cursor = root;
 
+        // This is to calculate average of “averageRating’s” of the records that are returned
+        float averageRes = 0;
+
         // Loop until we reach a leaf node
         while (cursor->isLeaf == false)
         {
@@ -83,12 +86,12 @@ void BPlusTree::search(int lowerBound, int upperBound)
                 // key is still within range of lower bound and upper bound
                 if (cursor->keys[i] >= lowerBound && cursor->keys[i] <= upperBound)
                 {
-                    // output
+                    // Displaying node
                     cout << "Accessing leaf node. Displaying node: ";
                     displayNode(cursor);
 
                     cout << endl;
-                    cout << "Average rating: " << cursor->keys[i] << " > ";
+                    cout << "Average rating: " << cursor->keys[i] << " ";
 
                     // Access the LL and print to output
                     displayLL(cursor->pointers[i]);

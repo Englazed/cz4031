@@ -116,12 +116,13 @@ void BPlusTree::displayLL(Address llHead)
     int ctr = 0;
     while (ctr < head->curKeyCount)
     {
-        std::cout << "\ndata block";
+        std::cout << "\nBlock:";
         displayBlock(head->pointers[ctr].blockAddress);
         std::cout << endl;
 
+        // This outputs the averageRating that matches the criteria
         Record res = *(Record *)(disk->read(head->pointers[ctr], sizeof(Record)));
-        std::cout << res.tconst << " | ";
+        std::cout << res.averageRating<< " | ";
 
         ctr++;
     }
@@ -137,7 +138,7 @@ void BPlusTree::displayLL(Address llHead)
     // End of linked list or otherwise
     if (head->pointers[head->curKeyCount].blockAddress == nullptr)
     {
-        std::cout << "ll end" << endl;
+        std::cout << "End of linked list" << endl;
         return;
     }
     else
