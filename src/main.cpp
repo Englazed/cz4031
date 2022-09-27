@@ -32,7 +32,7 @@ int main()
     streambuf *coutbuf = std::cout.rdbuf(); // save old buffer
 
     // save experiment1 logging
-    ofstream out1("./experiment_results/experiment1");
+    ofstream out1("../experiment_results/experiment1.txt");
     std::cout.rdbuf(out1.rdbuf()); // redirect std::cout to filename.txt!
 
     /*
@@ -136,7 +136,7 @@ int main()
     std::cout << "\nStarting experiment 2..." << endl;
 
     // save experiment2 logging
-    ofstream out2("experiment_results/experiment2");
+    ofstream out2("../experiment_results/experiment2.txt");
     std::cout.rdbuf(out2.rdbuf()); // redirect std::cout to filename.txt!
 
     // call experiment 2
@@ -168,7 +168,7 @@ int main()
     std::cout << "\nStarting experiment 3..." << endl;
     
     // save experiment3 logging
-    ofstream out3("experiment_results/experiment3");
+    ofstream out3("../experiment_results/experiment3.txt");
     std::cout.rdbuf(out3.rdbuf()); // redirect std::cout to filename.txt!
 
     // call experiment 3
@@ -194,8 +194,10 @@ int main()
     =============================================================
     */
 
+    std::cout << "\nStarting experiment 4..." << endl;
+
     // save experiment4 logging
-    ofstream out4("experiment_results/experiment4");
+    ofstream out4("../experiment_results/experiment4.txt");
     std::cout.rdbuf(out4.rdbuf()); // redirect std::cout to filename.txt!
 
     // call experiment 4
@@ -221,8 +223,10 @@ int main()
     =============================================================
     */
 
+    std::cout << "\nStarting experiment 5..." << endl;
+
     // save experiment5 logging
-    ofstream out5("experiment_results/experiment5");
+    ofstream out5("../experiment_results/experiment5.txt");
     std::cout.rdbuf(out5.rdbuf()); // redirect std::cout to filename.txt!
 
     // call experiment 5
