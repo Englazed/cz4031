@@ -81,9 +81,9 @@ int BPlusTree::remove(int key)
         if (!found)
         {
             std::cout << "Target key is not found: " << key << endl;
-            int numNodesDeleted = numNodes - index->getAllocatedBlocks();
-            numNodes = index->getAllocatedBlocks();
-            return numNodesDeleted;
+            int nodesCountDeleted = nodesCount - index->getAllocatedBlocks();
+            nodesCount = index->getAllocatedBlocks();
+            return nodesCountDeleted;
         }
 
         removeLL(cursor->pointers[position]);
@@ -116,21 +116,21 @@ int BPlusTree::remove(int key)
             }
 
             std::cout << "Successfully deleted key: " << key << endl;
-            int numNodesDeleted = numNodes - index->getAllocatedBlocks();
-            numNodes = index->getAllocatedBlocks();
-            Address cursorAddress = {cursorDiskAddress, 0};
+            int nodesCountDeleted = nodesCount - index->getAllocatedBlocks();
+            nodesCount = index->getAllocatedBlocks();
+            Address cursorAddress = { cursorDiskAddress, 0 };
             index->write(cursor, nodeSize, cursorAddress);
-            return numNodesDeleted;
+            return nodesCountDeleted;
         }
 
         if (cursor->curKeyCount >= (maxKeyCount + 1) / 2)
         {
             std::cout << "Successfully deleted key: " << key << endl;
-            int numNodesDeleted = numNodes - index->getAllocatedBlocks();
-            numNodes = index->getAllocatedBlocks();
-            Address cursorAddress = {cursorDiskAddress, 0};
+            int nodesCountDeleted = nodesCount - index->getAllocatedBlocks();
+            nodesCount = index->getAllocatedBlocks();
+            Address cursorAddress = { cursorDiskAddress, 0 };
             index->write(cursor, nodeSize, cursorAddress);
-            return numNodesDeleted;
+            return nodesCountDeleted;
         }
 
         if (leftSibling >= 0)
@@ -153,14 +153,14 @@ int BPlusTree::remove(int key)
                 leftNode->curKeyCount--;
                 leftNode->pointers[cursor->curKeyCount] = leftNode->pointers[cursor->curKeyCount + 1];
                 parent->keys[leftSibling] = cursor->keys[0];
-                Address parentAddress{parentDiskAddress, 0};
+                Address parentAddress{ parentDiskAddress, 0 };
                 index->write(parent, nodeSize, parentAddress);
                 index->write(leftNode, nodeSize, parent->pointers[leftSibling]);
-                Address cursorAddress = {cursorDiskAddress, 0};
+                Address cursorAddress = { cursorDiskAddress, 0 };
                 index->write(cursor, nodeSize, cursorAddress);
-                int numNodesDeleted = numNodes - index->getAllocatedBlocks();
-                numNodes = index->getAllocatedBlocks();
-                return numNodesDeleted;
+                int nodesCountDeleted = nodesCount - index->getAllocatedBlocks();
+                nodesCount = index->getAllocatedBlocks();
+                return nodesCountDeleted;
             }
         }
 
@@ -184,14 +184,14 @@ int BPlusTree::remove(int key)
 
                 rightNode->pointers[cursor->curKeyCount] = rightNode->pointers[cursor->curKeyCount + 1];
                 parent->keys[rightSibling - 1] = rightNode->keys[0];
-                Address parentAddress{parentDiskAddress, 0};
+                Address parentAddress{ parentDiskAddress, 0 };
                 index->write(parent, nodeSize, parentAddress);
                 index->write(rightNode, nodeSize, parent->pointers[rightSibling]);
-                Address cursorAddress = {cursorDiskAddress, 0};
+                Address cursorAddress = { cursorDiskAddress, 0 };
                 index->write(cursor, nodeSize, cursorAddress);
-                int numNodesDeleted = numNodes - index->getAllocatedBlocks();
-                numNodes = index->getAllocatedBlocks();
-                return numNodesDeleted;
+                int nodesCountDeleted = nodesCount - index->getAllocatedBlocks();
+                nodesCount = index->getAllocatedBlocks();
+                return nodesCountDeleted;
             }
         }
 
@@ -233,9 +233,9 @@ int BPlusTree::remove(int key)
         }
     }
 
-    int numNodesDeleted = numNodes - index->getAllocatedBlocks();
-    numNodes = index->getAllocatedBlocks();
-    return numNodesDeleted;
+    int nodesCountDeleted = nodesCount - index->getAllocatedBlocks();
+    nodesCount = index->getAllocatedBlocks();
+    return nodesCountDeleted;
 }
 
 void BPlusTree::removeInternal(int key, Node *cursorDiskAddress, Node *childDiskAddress)
